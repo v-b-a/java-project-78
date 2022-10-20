@@ -1,28 +1,33 @@
 package hexlet.code;
 
+import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 
 public class Main {
     public static void main(String[] args) {
+
         Validator v = new Validator();
 
-        StringSchema schema = v.string();
+        NumberSchema schema = v.number();
+//
+//        System.out.println(schema.isValid(null)); // true
+//
+//        schema.required();
+//        System.out.println("________");
+//        System.out.println(schema.isValid(null)); // false
+//        System.out.println(schema.isValid(10)); // true
+//        System.out.println(schema.isValid("5")); // false
+//        System.out.println("________");
+//
+//        System.out.println(schema.positive().isValid(10)); // true
+//        System.out.println(schema.isValid(-10)); // false
+////
+//        System.out.println("________");
+        schema.range(5, 10);
 
-        System.out.println(schema.isValid(""));
-        System.out.println(schema.isValid(null));
-        schema.required();
-        System.out.println(schema.isValid(""));
-        System.out.println(schema.isValid(null));
-
-        System.out.println("-----------");
-        System.out.println(schema.isValid("what does the fox say")); // true
-        System.out.println(schema.isValid("hexlet")); // true
-        System.out.println(schema.isValid(null)); // false
-        System.out.println(schema.isValid("")); // false
-        System.out.println("-----------");
-        System.out.println(schema.contains("wh").isValid("what does the fox say")); // true
-        System.out.println(schema.contains("what").isValid("what does the fox say")); // true
-        System.out.println(schema.contains("whatthe").isValid("what does the fox say")); // false
-        System.out.println(schema.isValid("what does the fox say")); // false
+        System.out.println(schema.isValid(5)); // true
+        System.out.println(schema.isValid(10)); // true
+        System.out.println(schema.isValid(4)); // false
+        System.out.println(schema.isValid(11)); // false
     }
 }

@@ -3,18 +3,19 @@ package hexlet.code.schemas;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema {
     private final Map<String, String> currentConstraint = new HashMap<>();
 
-    public boolean isValid(String value) {
+    @Override
+    public boolean isValid(Object value) {
         if ((currentConstraint.containsKey("required")) && (value == null || value.equals(""))) {
             return false;
         }
-        if ((currentConstraint.containsKey("contains")) && !(value.contains(currentConstraint.get("contains")))) {
+        if ((currentConstraint.containsKey("contains")) && !((String.valueOf(value)).contains(currentConstraint.get("contains")))) {
             return false;
         }
         if ((currentConstraint.containsKey("minLength")) &&
-                (value.length() < Integer.parseInt(currentConstraint.get("minLength")))) {
+                ((String.valueOf(value)).length() < Integer.parseInt(currentConstraint.get("minLength")))) {
             return false;
         }
         return true;
