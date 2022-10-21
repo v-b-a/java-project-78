@@ -14,7 +14,7 @@ public class NumberSchema extends BaseSchema {
             return false;
         }
         if(currentConstraint.containsKey("range")) {
-            String[] array = currentConstraint.get("range").split(",");
+            String[] array = String.valueOf(currentConstraint.get("range")).split(",");
             int i1 = Integer.parseInt(array[0]);
             int i2 = Integer.parseInt(array[1]);
             if ((Integer) value < i1 || (Integer) value > i2) {
@@ -26,9 +26,7 @@ public class NumberSchema extends BaseSchema {
         }
         return true;
     }
-    public void required() {
-        currentConstraint.put("required", null);
-    }
+
     public NumberSchema positive() {
         currentConstraint.put("positive", null);
         return this;
