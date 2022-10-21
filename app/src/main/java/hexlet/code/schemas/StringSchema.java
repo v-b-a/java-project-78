@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StringSchema extends BaseSchema {
-    private final Map<String, String> currentConstraint = new HashMap<>();
-
     @Override
     public boolean isValid(Object value) {
         if ((currentConstraint.containsKey("required")) && (value == null || value.equals(""))) {

@@ -3,8 +3,9 @@ package hexlet.code.schemas;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseSchema {
-    private final Map<String, String> currentConstraint = new HashMap<>();
+public abstract class BaseSchema {
+    Map<String, String> currentConstraint;
+
     public boolean isValid(Object value) {
         return false;
     }
