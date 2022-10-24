@@ -10,6 +10,9 @@ public class NumberSchema extends BaseSchema {
         if(currentConstraint.containsKey("required") && (value == null)) {
             return false;
         }
+        if(!currentConstraint.containsKey("required") && (value == null)) {
+            return true;
+        }
         if(currentConstraint.containsKey("positive") && (Integer) value <= 0) {
             return false;
         }
