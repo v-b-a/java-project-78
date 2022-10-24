@@ -8,12 +8,13 @@ public class StringSchema extends BaseSchema {
         if ((currentConstraint.containsKey("required")) && (value == null || value.equals(""))) {
             return false;
         }
-        if ((currentConstraint.containsKey("contains")) &&
-                !((String.valueOf(value)).contains((CharSequence) currentConstraint.get("contains")))) {
+        if ((currentConstraint.containsKey("contains"))
+                && !((String.valueOf(value)).contains((CharSequence) currentConstraint.get("contains")))) {
             return false;
         }
-        if ((currentConstraint.containsKey("minLength")) &&
-                ((String.valueOf(value)).length() < Integer.parseInt((String) currentConstraint.get("minLength")))) {
+        if ((currentConstraint.containsKey("minLength"))
+                && ((String.valueOf(value)).length()
+                < Integer.parseInt((String) currentConstraint.get("minLength")))) {
             return false;
         }
         return true;
