@@ -1,63 +1,58 @@
-//package hexlet.code;
-//
-//import hexlet.code.schemas.BaseSchema;
-//import hexlet.code.schemas.MapSchema;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//
-//public class ValidatorNestedMapTest {
-//    MapSchema schema;
-//    Validator v;
-//
-//    @BeforeEach
-//    public void beforeEach() {
-//        v = new Validator();
-//        schema = v.map();
-//        Map<String, BaseSchema> schemas = new HashMap<>();
-//        schemas.put("name", v.string().required());
-//        schemas.put("age", v.number().positive());
-//        schema.shape(schemas);
-//    }
-//
-//    @Test
-//    public void onlyEmptyValue() {
-//        Map<String, Object> human1 = new HashMap<>();
-//        human1.put("name", "Kolya");
-//        human1.put("age", 100);
-//        boolean actual = schema.isValid(human1);
-//        assertTrue(actual);
-//    }
-//    @Test
-//    public void emptyValueAfterRequired() {
-//        schema.required();
-//        boolean actual = schema.isValid(null);
-//        assertFalse(actual);
-//    }
-//    @Test
-//    public void mapValueAfterRequired() {
-//        schema.required();
-//        boolean actual = schema.isValid(new HashMap());
-//        assertTrue(actual);
-//        Map<String, String> map = new HashMap<>();
-//        map.put("One", "Two");
-//        boolean actual2 = schema.isValid(map);
-//        assertTrue(actual2);
-//    }
-//    @Test
-//    public void sizeOf() {
-//        schema.sizeof(2);
-//        Map<String, String> map = new HashMap<>();
-//        map.put("One", "Two");
-//        boolean actual = schema.isValid(map);
-//        assertFalse(actual);
-//        map.put("Dat", "Mar");
-//        boolean actual2 = schema.isValid(map);
-//        assertTrue(actual2);
-//    }
-//}
+package hexlet.code;
+
+import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.MapSchema;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class ValidatorNestedMapTest {
+    Validator v = new Validator();
+    MapSchema schema = v.map();
+
+    @BeforeEach
+    public void beforeAll() {
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("name", v.string().required());
+        schemas.put("age", v.number().positive());
+        schema.shape(schemas);
+    }
+
+    @Test
+    public void bothTrue() {
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Kolya");
+        human1.put("age", 100);
+        boolean actual = schema.isValid(human1);
+        assertTrue(actual);
+    }
+    @Test
+    public void oneValueNull() {
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("name", "Maya");
+        human2.put("age", null);
+        boolean actual = schema.isValid(human2);
+        assertTrue(actual);
+    }
+    @Test
+    public void oneFalse() {
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("name", "");
+        human3.put("age", null);
+        boolean actual = schema.isValid(human3); // false
+        assertFalse(actual);
+    }
+    @Test
+    public void numberIsNegative() {
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put("name", "Valya");
+        human4.put("age", -5);
+        boolean actual = schema.isValid(human4); // false
+        assertFalse(actual);
+    }
+}
