@@ -1,10 +1,7 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class NumberSchema extends BaseSchema {
-    //    private final Map<String, String> currentConstraint = new HashMap<>();
     @Override
     public boolean isValid(Object value) {
         if (currentConstraint.containsKey("required") && (value == null)) {
