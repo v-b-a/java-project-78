@@ -21,13 +21,13 @@ public class NumberSchema extends BaseSchema {
         });
     }
 
-    public NumberSchema range(int number1, int number2) {
+    public final NumberSchema range(int number1, int number2) {
         rangeNumbers[0] = number1;
         rangeNumbers[1] = number2;
         return this;
     }
 
-    public BaseSchema positive() {
+    public final BaseSchema positive() {
         checkPositive = true;
         return this;
     }

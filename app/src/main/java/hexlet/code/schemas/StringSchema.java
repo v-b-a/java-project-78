@@ -21,12 +21,12 @@ public class StringSchema extends BaseSchema {
 
     }
 
-    public BaseSchema contains(String s) {
+    public final BaseSchema contains(String s) {
         containsString = s;
         return this;
     }
 
-    public BaseSchema minLength(int i) {
+    public final BaseSchema minLength(int i) {
         minLength = i;
         return this;
     }

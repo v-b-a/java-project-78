@@ -8,11 +8,11 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema {
     @Getter
-    protected boolean required = false;
+    private boolean required = false;
 
-    Map<String, Predicate<Object>> constraints = new LinkedHashMap<>();
+    private final Map<String, Predicate<Object>> constraints = new LinkedHashMap<>();
 
-    public boolean isValid(Object value) {
+    public final boolean isValid(Object value) {
         if (!required) {
             return true;
         }
@@ -26,12 +26,12 @@ public abstract class BaseSchema {
         return result;
     }
 
-    public BaseSchema required() {
+    public final BaseSchema required() {
         required = true;
         return this;
     }
 
-    void addConstraint(String constraintName, Predicate<Object> predicate){
+    public final void addConstraint(String constraintName, Predicate<Object> predicate) {
         constraints.put(constraintName, predicate);
     }
 

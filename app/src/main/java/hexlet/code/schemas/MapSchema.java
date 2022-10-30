@@ -29,12 +29,12 @@ public class MapSchema extends BaseSchema {
             return true;
         });
     }
-    public BaseSchema sizeof(int size) {
+    public final BaseSchema sizeof(int size) {
         mapSize = size;
         return this;
     }
 
-    public BaseSchema shape(Map<String, BaseSchema> map) {
+    public final BaseSchema shape(Map<String, BaseSchema> map) {
         this.schemas = map;
         required();
         return this;
