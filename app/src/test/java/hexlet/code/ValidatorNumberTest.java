@@ -36,6 +36,7 @@ public class ValidatorNumberTest {
     }
     @Test
     public void rangeValue() {
+        schema.required();
         schema.range(5, 10);
         boolean actual = schema.isValid(4);
         assertFalse(actual);

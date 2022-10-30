@@ -2,38 +2,33 @@ package hexlet.code.schemas;
 
 
 public class NumberSchema extends BaseSchema {
-    @Override
-    public boolean isValid(Object value) {
-        if (currentConstraint.containsKey("required") && (value == null)) {
-            return false;
-        }
-        if (!currentConstraint.containsKey("required") && (value == null)) {
-            return true;
-        }
-        if (currentConstraint.containsKey("positive") && (Integer) value <= 0) {
-            return false;
-        }
-        if (currentConstraint.containsKey("range")) {
-            String[] array = String.valueOf(currentConstraint.get("range")).split(",");
-            int i1 = Integer.parseInt(array[0]);
-            int i2 = Integer.parseInt(array[1]);
-            if ((Integer) value < i1 || (Integer) value > i2) {
-                return false;
-            }
-        }
-        if (value instanceof String) {
-            return false;
-        }
-        return true;
-    }
+    private final Integer[] rangeNumbers = new Integer[2];
+    private boolean checkPositive = false;
 
-    public NumberSchema positive() {
-        currentConstraint.put("positive", null);
-        return this;
+    public NumberSchema() {
+        addConstraint("required", value -> value instanceof Integer);
+        addConstraint("positive", value -> {
+            if (!checkPositive) {
+                return true;
+            }
+            return ((Integer) value) > 0;
+        });
+        addConstraint("range", value -> {
+            if (rangeNumbers[0] == null) {
+                return true;
+            }
+            return !((Integer) value < rangeNumbers[0] || (Integer) value > rangeNumbers[1]);
+        });
     }
 
     public NumberSchema range(int number1, int number2) {
-        currentConstraint.put("range", String.format("%s,%s", number1, number2));
+        rangeNumbers[0] = number1;
+        rangeNumbers[1] = number2;
+        return this;
+    }
+
+    public BaseSchema positive() {
+        checkPositive = true;
         return this;
     }
 

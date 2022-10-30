@@ -1,43 +1,80 @@
 package hexlet.code.schemas;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema {
+    private Integer mapSize;
+    private Map<String, BaseSchema> schemas;
 
-    @Override
-    public boolean isValid(Object value) {
-        if (currentConstraint.containsKey("required") && (value == null)) {
-            return false;
-        }
-        if (currentConstraint.containsKey("sizeof")) {
-            Map map = new HashMap<>((Map) value);
-            return map.size() == Integer.parseInt(String.valueOf(currentConstraint.get("sizeof")));
-        }
-        if (currentConstraint.containsKey("shape")) {
-            Map<String, BaseSchema> map2 = (Map<String, BaseSchema>) currentConstraint.get("shape");
-            Map<String, Object> map3 = (Map<String, Object>) value;
-            int countTrue = 0;
-            if (map2.get("name").isValid(map3.get("name"))) {
-                countTrue++;
+    public MapSchema() {
+        addConstraint("required", value -> value instanceof Map<?, ?>);
+
+        addConstraint("sizeof", value -> {
+            if (mapSize == null) {
+                return true;
             }
-            if (map2.get("age").isValid(map3.get("age"))) {
-                countTrue++;
+            return ((Map<?, ?>) value).size() == mapSize;
+        });
+        addConstraint("shape", value -> {
+            if (schemas == null) {
+                return true;
             }
-            if (countTrue != 2) {
-                return false;
+            Map<String, BaseSchema> userValue = (Map<String, BaseSchema>) value;
+            for (Map.Entry<String, BaseSchema> element : userValue.entrySet()) {
+                if (!(schemas.get(element.getKey()).isValid(element.getValue()))) {
+                    return false;
+                }
             }
-        }
-        return true;
+//            for (Map.Entry<String, BaseSchema> elementSchemas : schemas.entrySet()) {
+//                if (!(userValue.get(elementSchemas.getKey()).isValid(elementSchemas.getValue()))) {
+//                    return false;
+//                }
+//            }
+            return true;
+        });
     }
 
-    public void sizeof(int size) {
-        currentConstraint.put("sizeof", size);
+    //
+//    @Override
+//    public boolean isValid(Object value) {
+//        if (constraints.containsKey("required") && (value == null)) {
+//            return false;
+//        }
+//        if (constraints.containsKey("sizeof")) {
+//            Map map = new HashMap<>((Map) value);
+//            return map.size() == Integer.parseInt(String.valueOf(constraints.get("sizeof")));
+//        }
+//        if (constraints.containsKey("shape")) {
+//            Map<String, BaseSchema> map2 = (Map<String, BaseSchema>) constraints.get("shape");
+//            Map<String, Object> map3 = (Map<String, Object>) value;
+//            int countTrue = 0;
+//            if (map2.get("name").isValid(map3.get("name"))) {
+//                countTrue++;
+//            }
+//            if (map2.get("age").isValid(map3.get("age"))) {
+//                countTrue++;
+//            }
+//            if (countTrue != 2) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
+    public BaseSchema sizeof(int size) {
+        mapSize = size;
+        return this;
     }
 
-    public void shape(Map<String, BaseSchema> map) {
-        currentConstraint.put("shape", map);
+    public BaseSchema shape(Map<String, BaseSchema> map) {
+        this.schemas = map;
+        required();
+        return this;
     }
+
+
+//
+
 
 }

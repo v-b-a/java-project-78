@@ -1,32 +1,33 @@
 package hexlet.code.schemas;
 
-
 public class StringSchema extends BaseSchema {
+    private Integer minLength;
+    private String containsString;
 
-    @Override
-    public boolean isValid(Object value) {
-        if ((currentConstraint.containsKey("required")) && (value == null || value.equals(""))) {
-            return false;
-        }
-        if ((currentConstraint.containsKey("contains"))
-                && !((String.valueOf(value)).contains((CharSequence) currentConstraint.get("contains")))) {
-            return false;
-        }
-        if ((currentConstraint.containsKey("minLength"))
-                && ((String.valueOf(value)).length()
-                < Integer.parseInt((String) currentConstraint.get("minLength")))) {
-            return false;
-        }
-        return true;
+    public StringSchema() {
+        addConstraint("required", value -> value instanceof String && !((String) value).isEmpty());
+        addConstraint("minLength", value -> {
+            if (minLength == null) {
+                return true;
+            }
+            return ((String) value).length() >= minLength;
+        });
+        addConstraint("contains", value -> {
+            if (containsString == null) {
+                return true;
+            }
+            return ((String) value).contains(containsString);
+        });
+
     }
 
     public BaseSchema contains(String s) {
-        currentConstraint.put("contains", s);
+        containsString = s;
         return this;
     }
 
     public BaseSchema minLength(int i) {
-        currentConstraint.put("minLength", String.valueOf(i));
+        minLength = i;
         return this;
     }
 

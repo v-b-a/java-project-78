@@ -43,6 +43,7 @@ public class ValidatorMapTest {
     }
     @Test
     public void sizeOf() {
+        schema.required();
         schema.sizeof(2);
         Map<String, String> map = new HashMap<>();
         map.put("One", "Two");
