@@ -25,11 +25,6 @@ public abstract class BaseSchema {
         return result;
     }
 
-    public BaseSchema required() {
-        required = true;
-        return this;
-    }
-
     public final void addConstraint(String constraintName, Predicate<Object> predicate) {
         constraints.put(constraintName, predicate);
     }

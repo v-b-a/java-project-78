@@ -44,7 +44,6 @@ public class MapSchema extends BaseSchema {
         required();
         return this;
     }
-    @Override
     public final MapSchema required() {
         setRequired(true);
         return this;

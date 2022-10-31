@@ -32,7 +32,6 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    @Override
     public final StringSchema required() {
         setRequired(true);
         return this;
