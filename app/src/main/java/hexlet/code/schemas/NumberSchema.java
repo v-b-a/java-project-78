@@ -7,7 +7,7 @@ public class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
         addConstraint("required", value -> {
-            if (getRequired() ==null) {
+            if (getRequired() == null) {
                 return true;
             }
             return value instanceof Integer;
