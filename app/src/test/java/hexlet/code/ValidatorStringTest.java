@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorStringTest {
-    StringSchema schema;
-    Validator v;
+    private StringSchema schema;
+    private Validator v;
 
     @BeforeEach
-    public void beforeEach() {
+    public final void beforeEach() {
         v = new Validator();
         schema = v.string();
     }

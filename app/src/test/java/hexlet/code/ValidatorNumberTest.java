@@ -8,13 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorNumberTest {
-    NumberSchema schema;
-    Validator v;
-    private final int TEST_NUMBER_4 = 4;
-    private final int TEST_NUMBER_5 = 5;
-    private final int TEST_NUMBER_6 = 6;
-    private final int TEST_NUMBER_10 = 10;
-    private final int TEST_NUMBER_15 = 15;
+    private NumberSchema schema;
+    private Validator v;
+    private final int NUMBERMINUS5 = -5;
+    private final int NUMBER4 = 4;
+    private final int NUMBER5 = 5;
+    private final int NUMBER6 = 6;
+    private final int NUMBER10 = 10;
+    private final int NUMBER15 = 15;
 
 
     @BeforeEach
@@ -43,20 +44,20 @@ public class ValidatorNumberTest {
     @Test
     public void rangeValue() {
         schema.required();
-        schema.range(TEST_NUMBER_5, TEST_NUMBER_10);
-        boolean actual = schema.isValid(TEST_NUMBER_4);
+        schema.range(NUMBER5, NUMBER10);
+        boolean actual = schema.isValid(NUMBER4);
         assertFalse(actual);
-        boolean actual2 = schema.isValid(TEST_NUMBER_6);
+        boolean actual2 = schema.isValid(NUMBER6);
         assertTrue(actual2);
-        boolean actual3 = schema.isValid(TEST_NUMBER_10);
+        boolean actual3 = schema.isValid(NUMBER10);
         assertTrue(actual3);
-        boolean actual4 = schema.isValid(TEST_NUMBER_15);
+        boolean actual4 = schema.isValid(NUMBER15);
         assertFalse(actual4);
     }
     @Test
     public void negativeValueWithoutRequiredWithPositive() {
         schema.positive();
-        boolean actual1 = schema.isValid(-5);
+        boolean actual1 = schema.isValid(NUMBERMINUS5);
         assertFalse(actual1);
         boolean actual2 = schema.isValid("5");
         assertFalse(actual2);
