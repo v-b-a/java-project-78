@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ValidatorNumberTest {
     private NumberSchema schema;
     private Validator v;
-    private final int NUMBERMINUS5 = -5;
-    private final int NUMBER4 = 4;
-    private final int NUMBER5 = 5;
-    private final int NUMBER6 = 6;
-    private final int NUMBER10 = 10;
-    private final int NUMBER15 = 15;
+    private final int numberMinus5 = -5;
+    private final int number4 = 4;
+    private final int number5 = 5;
+    private final int number6 = 6;
+    private final int number10 = 10;
+    private final int number15 = 15;
 
 
     @BeforeEach
@@ -44,20 +44,20 @@ public class ValidatorNumberTest {
     @Test
     public void rangeValue() {
         schema.required();
-        schema.range(NUMBER5, NUMBER10);
-        boolean actual = schema.isValid(NUMBER4);
+        schema.range(number5, number10);
+        boolean actual = schema.isValid(number4);
         assertFalse(actual);
-        boolean actual2 = schema.isValid(NUMBER6);
+        boolean actual2 = schema.isValid(number6);
         assertTrue(actual2);
-        boolean actual3 = schema.isValid(NUMBER10);
+        boolean actual3 = schema.isValid(number10);
         assertTrue(actual3);
-        boolean actual4 = schema.isValid(NUMBER15);
+        boolean actual4 = schema.isValid(number15);
         assertFalse(actual4);
     }
     @Test
     public void negativeValueWithoutRequiredWithPositive() {
         schema.positive();
-        boolean actual1 = schema.isValid(NUMBERMINUS5);
+        boolean actual1 = schema.isValid(numberMinus5);
         assertFalse(actual1);
         boolean actual2 = schema.isValid("5");
         assertFalse(actual2);

@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ValidatorNestedMapTest {
     private final Validator v = new Validator();
     private final MapSchema schema = v.map();
-    private final int NUMBER100 = 100;
-    private final int NUMBERMINUS5 = -5;
+    private final int number100 = 100;
+    private final int numberMinus5 = -5;
 
     @BeforeEach
     public final void beforeEach() {
@@ -29,7 +29,7 @@ public class ValidatorNestedMapTest {
     public void bothTrue() {
         Map<String, Object> human1 = new HashMap<>();
         human1.put("name", "Kolya");
-        human1.put("age", NUMBER100);
+        human1.put("age", number100);
         boolean actual = schema.isValid(human1);
         assertTrue(actual);
     }
@@ -53,7 +53,7 @@ public class ValidatorNestedMapTest {
     public void numberIsNegative() {
         Map<String, Object> human4 = new HashMap<>();
         human4.put("name", "Valya");
-        human4.put("age", NUMBERMINUS5);
+        human4.put("age", numberMinus5);
         boolean actual = schema.isValid(human4); // false
         assertFalse(actual);
     }
