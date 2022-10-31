@@ -34,8 +34,13 @@ public class NumberSchema extends BaseSchema {
         rangeNumbers[1] = number2;
         return this;
     }
+    @Override
+    public final NumberSchema required() {
+        setRequired(true);
+        return this;
+    }
 
-    public final BaseSchema positive() {
+    public final NumberSchema positive() {
         checkPositive = true;
         return this;
     }

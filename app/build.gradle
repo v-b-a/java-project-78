@@ -34,10 +34,6 @@ application {
 checkstyle {
     toolVersion '9.2.1'
 }
-jacoco {
-    toolVersion = "0.8.8"
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-}
 
 jacocoTestReport {
     reports {

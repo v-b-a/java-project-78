@@ -34,14 +34,19 @@ public class MapSchema extends BaseSchema {
         });
     }
 
-    public final BaseSchema sizeof(int size) {
+    public final MapSchema sizeof(int size) {
         mapSize = size;
         return this;
     }
 
-    public final BaseSchema shape(Map<String, BaseSchema> map) {
+    public final MapSchema shape(Map<String, BaseSchema> map) {
         this.schemas = map;
         required();
+        return this;
+    }
+    @Override
+    public final MapSchema required() {
+        setRequired(true);
         return this;
     }
 }

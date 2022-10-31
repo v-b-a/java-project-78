@@ -44,8 +44,6 @@ public class ValidatorStringTest {
     public void containsValue() {
         boolean actual = schema.contains("wh").isValid("what does the fox say");
         assertTrue(actual);
-        schema.required();
-        assertTrue(actual);
         boolean actual2 = schema.contains("whatthe").isValid("what does the fox say");
         assertFalse(actual2);
     }

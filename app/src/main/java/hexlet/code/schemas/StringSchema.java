@@ -27,12 +27,17 @@ public class StringSchema extends BaseSchema {
 
     }
 
-    public final BaseSchema contains(String s) {
+    public final StringSchema contains(String s) {
         containsString = s;
         return this;
     }
 
-    public final BaseSchema minLength(int i) {
+    @Override
+    public final StringSchema required() {
+        setRequired(true);
+        return this;
+    }
+    public final StringSchema minLength(int i) {
         minLength = i;
         return this;
     }
