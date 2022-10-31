@@ -8,14 +8,11 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema {
     @Getter
-    private boolean required = false;
+    private Boolean required;
 
     private final Map<String, Predicate<Object>> constraints = new LinkedHashMap<>();
 
     public final boolean isValid(Object value) {
-        if (!required) {
-            return true;
-        }
         boolean result = false;
         for (Map.Entry<String, Predicate<Object>> element : constraints.entrySet()) {
             if (!element.getValue().test(value)) {

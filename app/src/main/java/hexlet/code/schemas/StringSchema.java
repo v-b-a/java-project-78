@@ -4,8 +4,14 @@ public class StringSchema extends BaseSchema {
     private Integer minLength;
     private String containsString;
 
+
     public StringSchema() {
-        addConstraint("required", value -> value instanceof String && !((String) value).isEmpty());
+        addConstraint("required", value -> {
+            if (getRequired() == null) {
+                return true;
+            }
+            return value instanceof String && !((String) value).isEmpty();
+        });
         addConstraint("minLength", value -> {
             if (minLength == null) {
                 return true;

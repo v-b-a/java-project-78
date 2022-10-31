@@ -10,9 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ValidatorNumberTest {
     NumberSchema schema;
     Validator v;
+    private final int TEST_NUMBER_4 = 4;
+    private final int TEST_NUMBER_5 = 5;
+    private final int TEST_NUMBER_6 = 6;
+    private final int TEST_NUMBER_10 = 10;
+    private final int TEST_NUMBER_15 = 15;
+
 
     @BeforeEach
-    public void beforeEach() {
+    public final void beforeEach() {
         v = new Validator();
         schema = v.number();
     }
@@ -37,14 +43,28 @@ public class ValidatorNumberTest {
     @Test
     public void rangeValue() {
         schema.required();
-        schema.range(5, 10);
-        boolean actual = schema.isValid(4);
+        schema.range(TEST_NUMBER_5, TEST_NUMBER_10);
+        boolean actual = schema.isValid(TEST_NUMBER_4);
         assertFalse(actual);
-        boolean actual2 = schema.isValid(6);
+        boolean actual2 = schema.isValid(TEST_NUMBER_6);
         assertTrue(actual2);
-        boolean actual3 = schema.isValid(10);
+        boolean actual3 = schema.isValid(TEST_NUMBER_10);
         assertTrue(actual3);
-        boolean actual4 = schema.isValid(15);
+        boolean actual4 = schema.isValid(TEST_NUMBER_15);
         assertFalse(actual4);
+    }
+    @Test
+    public void negativeValueWithoutRequiredWithPositive() {
+        schema.positive();
+        boolean actual1 = schema.isValid(-5);
+        assertFalse(actual1);
+        boolean actual2 = schema.isValid("5");
+        assertFalse(actual2);
+    }
+    @Test
+    public void nullValueWithoutRequiredWithPositive() {
+        schema.positive();
+        boolean actual1 = schema.isValid(null);
+        assertTrue(actual1);
     }
 }

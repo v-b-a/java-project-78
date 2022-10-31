@@ -3,7 +3,7 @@ run-dist:
 	./build/install/app/bin/app
 
 clean:
-	./app/gradlew clean
+	./gradlew clean
 
 build:
 	./gradlew clean build

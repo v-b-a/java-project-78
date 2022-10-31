@@ -6,10 +6,18 @@ public class NumberSchema extends BaseSchema {
     private boolean checkPositive = false;
 
     public NumberSchema() {
-        addConstraint("required", value -> value instanceof Integer);
-        addConstraint("positive", value -> {
-            if (!checkPositive) {
+        addConstraint("required", value -> {
+            if (getRequired() ==null) {
                 return true;
+            }
+            return value instanceof Integer;
+        });
+        addConstraint("positive", value -> {
+            if (!checkPositive || value == null) {
+                return true;
+            }
+            if (!(value instanceof Integer)) {
+                return false;
             }
             return ((Integer) value) > 0;
         });

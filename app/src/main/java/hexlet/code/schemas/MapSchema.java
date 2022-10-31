@@ -8,8 +8,12 @@ public class MapSchema extends BaseSchema {
     private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
-        addConstraint("required", value -> value instanceof Map<?, ?>);
-
+        addConstraint("required", value -> {
+            if (getRequired() == null) {
+                return true;
+            }
+            return value instanceof Map<?, ?>;
+        });
         addConstraint("sizeof", value -> {
             if (mapSize == null) {
                 return true;
@@ -29,6 +33,7 @@ public class MapSchema extends BaseSchema {
             return true;
         });
     }
+
     public final BaseSchema sizeof(int size) {
         mapSize = size;
         return this;
