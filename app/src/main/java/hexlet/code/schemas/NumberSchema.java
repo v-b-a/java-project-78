@@ -1,11 +1,11 @@
 package hexlet.code.schemas;
 
-
 public class NumberSchema extends BaseSchema {
 
     public final NumberSchema range(int number1, int number2) {
-        addConstraint("range", value -> !((Integer) value < number1 ||
-                (Integer) value > number2));
+        addConstraint("range", value -> {
+            return !((Integer) value < number1 || (Integer) value > number2);
+        });
         return this;
     }
 
