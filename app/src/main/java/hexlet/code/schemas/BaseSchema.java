@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -12,10 +12,10 @@ public abstract class BaseSchema {
     @Setter
     private Boolean required;
 
-    private final Map<String, Predicate<Object>> constraints = new LinkedHashMap<>();
+    private final Map<String, Predicate<Object>> constraints = new HashMap<>();
 
     public final boolean isValid(Object value) {
-        boolean result = false;
+        boolean result = true;
         for (Map.Entry<String, Predicate<Object>> element : constraints.entrySet()) {
             if (!element.getValue().test(value)) {
                 return false;
