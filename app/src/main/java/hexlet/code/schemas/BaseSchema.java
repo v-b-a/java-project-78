@@ -1,16 +1,10 @@
 package hexlet.code.schemas;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    @Getter
-    @Setter
-    private Boolean required;
 
     private final Map<String, Predicate<Object>> constraints = new HashMap<>();
 

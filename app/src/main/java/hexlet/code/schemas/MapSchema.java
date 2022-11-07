@@ -11,7 +11,7 @@ public class MapSchema extends BaseSchema {
 
     public final MapSchema shape(Map<String, BaseSchema> map) {
         addConstraint("shape", value -> {
-            Map<String, BaseSchema> userValue = (Map<String, BaseSchema>) value;
+            Map<String, BaseSchema> userValue = (Map<String, BaseSchema>) value; // Как лучше сделать тут ?
             for (Map.Entry<String, BaseSchema> element : userValue.entrySet()) {
                 if (!(map.get(element.getKey()).isValid(element.getValue()))) {
                     return false;
