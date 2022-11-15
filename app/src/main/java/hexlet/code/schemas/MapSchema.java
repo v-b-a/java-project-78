@@ -4,6 +4,9 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema {
+    public MapSchema() {
+        addConstraint("required", value -> value instanceof Map<?, ?>);
+    }
     public final MapSchema sizeof(int size) {
         addConstraint("sizeof", value -> ((Map<?, ?>) value).size() == size);
         return this;
@@ -11,7 +14,10 @@ public class MapSchema extends BaseSchema {
 
     public final MapSchema shape(Map<String, BaseSchema> map) {
         addConstraint("shape", value -> {
-            Map<String, BaseSchema> userValue = (Map<String, BaseSchema>) value; // Как лучше сделать тут ?
+            if (!(value instanceof Map<?, ?>)) {
+                return false;
+            }
+            Map<String, BaseSchema> userValue = (Map<String, BaseSchema>) value;
             for (Map.Entry<String, BaseSchema> element : userValue.entrySet()) {
                 if (!(map.get(element.getKey()).isValid(element.getValue()))) {
                     return false;
@@ -19,11 +25,10 @@ public class MapSchema extends BaseSchema {
             }
             return true;
         });
-        required();
         return this;
     }
     public final MapSchema required() {
-        addConstraint("required", value -> value instanceof Map<?, ?>);
+        callRequired();
         return this;
     }
 }

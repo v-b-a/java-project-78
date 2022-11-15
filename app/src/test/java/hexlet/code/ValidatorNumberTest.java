@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorNumberTest {
     private NumberSchema schema;
-    private Validator v;
     private final int numberMinus5 = -5;
     private final int number4 = 4;
     private final int number5 = 5;
@@ -20,7 +19,7 @@ public class ValidatorNumberTest {
 
     @BeforeEach
     public final void beforeEach() {
-        v = new Validator();
+        Validator v = new Validator();
         schema = v.number();
     }
 
@@ -59,8 +58,8 @@ public class ValidatorNumberTest {
         schema.positive();
         boolean actual1 = schema.isValid(numberMinus5);
         assertFalse(actual1);
-        boolean actual2 = schema.isValid("5");
-        assertFalse(actual2);
+        boolean actual2 = schema.isValid("some text");
+        assertTrue(actual2);
     }
     @Test
     public void nullValueWithoutRequiredWithPositive() {
