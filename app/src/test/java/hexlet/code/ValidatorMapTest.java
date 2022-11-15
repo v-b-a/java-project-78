@@ -12,11 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorMapTest {
     private MapSchema schema;
-    private Validator v;
 
     @BeforeEach
     public final void beforeEach() {
-        v = new Validator();
+        Validator v = new Validator();
         schema = v.map();
     }
 
@@ -34,7 +33,7 @@ public class ValidatorMapTest {
     @Test
     public void mapValueAfterRequired() {
         schema.required();
-        boolean actual = schema.isValid(new HashMap());
+        boolean actual = schema.isValid(new HashMap<>());
         assertTrue(actual);
         Map<String, String> map = new HashMap<>();
         map.put("One", "Two");

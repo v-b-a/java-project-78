@@ -28,7 +28,7 @@ public abstract class BaseSchema {
     public final void addConstraint(String constraintName, Predicate<Object> predicate) {
         constraints.put(constraintName, predicate);
     }
-    public void callRequired() {
+    public final void callRequired() {
         this.requiredWasCalled = true;
     }
 
